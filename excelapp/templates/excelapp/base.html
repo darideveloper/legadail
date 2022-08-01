@@ -1,0 +1,41 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'excelapp/css/style.css' %}">
+    <title>{{app_name}} · {{page_name}}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Righteous&family=Saira+Condensed:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="{% static 'excelapp/imgs/favicon.png' %}" type="image/png">
+</head>
+<body>
+    <header>
+        <header>
+            <div class="page-title">
+                <div class="logo">
+                    <img src="{% static 'excelapp/imgs/logo.png' %}" alt="">
+                </div>
+                <span class="title">{{app_name}}</span>
+            </div>
+            <div class="buttons">
+                {% if page_name == "Home" %}
+                    <a class="btn" href="./logout">Logout</a>
+                    <!-- <a class="btn" href="./update-password">Update password</a> -->
+                {% endif %}
+            </div>
+        </header>
+    </header>
+    {% block main %}
+    {% endblock %}
+    <footer>
+        <small>
+            Powered by <a href="https://www.darideveloper.com/">Dari Developer</a>
+        </small>
+    </footer>
+</body>
+</html>

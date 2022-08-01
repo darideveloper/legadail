@@ -1,0 +1,36 @@
+{% extends "excelapp/base.html" %}
+{% load static %}
+
+{% block main %}
+<main class="login form">
+    <form action="./login" method="post">
+        {% csrf_token %}
+
+        {% if message %}
+            <p class="message">{{message}}</p>
+        {% endif %}
+
+        <h1>{{page_name}}</h1>
+
+        <label>
+            User name
+            <input type="text" name="user" id="user" class="text-input" required placeholder="JohnSmith or ScheduleV-1-JohnSmith">
+        </label>
+        <label>
+            Password
+            <input type="password" name="password" id="password" class="text-input" required placeholder="MySecretPass123*">
+        </label>
+
+        <p class="first">You don't have a password yet? click  
+           <a href="./generate-password">here</a>.
+        </p>
+
+        <p>For reset your password contact the admin.</p>
+
+        <input type="submit" value="Login">
+    </form>
+    <div class="hero-img">
+        <img src="{% static image_path %}" alt="">
+    </div>
+</main>
+{% endblock %}

@@ -1,0 +1,37 @@
+header
+    width: 100%
+    display: flex
+    align-items: center
+    justify-content: space-between
+
+    .page-title
+        display: flex
+        align-items: center
+        justify-content: flex-start
+        margin-top: 10px
+
+        .title
+            font-size: 30px
+
+        .logo
+            width: 50px
+            height: auto
+            margin-right: 50px
+
+            img
+                width: 100%
+                height: auto
+    
+    .buttons
+        display: flex
+        align-items: center
+        justify-content: flex-end
+
+        .btn
+            margin-right: 15px
+
+            &:last-child
+                margin-right: 0
+                
+    @media screen and (max-width: 620px)
+        flex-direction: column

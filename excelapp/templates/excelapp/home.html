@@ -1,0 +1,14 @@
+{% extends "excelapp/base.html" %}
+{% load static %}
+
+{% block main %}
+<main class="home">
+    <object data="{{pdf_path}}" type="application/pdf">
+        <div>
+            <p>Online PDF viewer not supported. Try to download: 
+                <a href="{{pdf_path}}">here</a>
+            </p>
+        </div>
+    </object> 
+</main>
+{% endblock %}
