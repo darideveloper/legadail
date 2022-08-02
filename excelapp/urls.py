@@ -1,4 +1,3 @@
-from this import s
 from django.urls import path
 from . import views
 
