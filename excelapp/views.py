@@ -23,7 +23,7 @@ def login (request):
 
     # Select random login for login form and context
     image_num = random.randint (1, 5)
-    image_path = f"excelapp/imgs/login-{image_num}.svg"
+    image_path = f"excelapp/imgs/illustration-{image_num}.svg"
     context = {
         "app_name": app_name,
         "page_name": "Login",
@@ -66,7 +66,7 @@ def generate_password (request):
 
     # Select random login for login form and create context
     image_num = random.randint (1, 5)
-    image_path = f"excelapp/imgs/login-{image_num}.svg"
+    image_path = f"excelapp/imgs/illustration-{image_num}.svg"
     context = {
         "app_name": app_name,
         "page_name": "Generate Password",
@@ -101,5 +101,4 @@ def generate_password (request):
     
     # Show page with message
     return render (request, 'excelapp/generate_password.html', context=context)
-
 
