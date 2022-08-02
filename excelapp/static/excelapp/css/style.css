@@ -5,11 +5,11 @@
 body {
   margin: 0;
   padding: 0;
-  background-color: #EEEEEE;
+  background-color: #FFFFFF;
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
-  color: #222831;
+  color: #296d30;
 }
 @media screen and (max-width: 1250px) {
   body {
@@ -20,12 +20,12 @@ body {
 
 h1, h2, h3, h4, h5, h6, .title {
   font-family: "Righteous", cursive;
-  color: #393E46;
+  color: #3CB448;
 }
 
 a {
   text-decoration: none;
-  color: #222831;
+  color: #296d30;
   font-weight: bold;
 }
 
@@ -106,8 +106,8 @@ header .buttons .btn:last-child {
   margin-bottom: 0;
 }
 .form form .message {
-  background-color: #393E46;
-  color: #EEEEEE;
+  background-color: #3CB448;
+  color: #FFFFFF;
   margin: 10px 0;
   padding: 5px 20px;
   width: calc(100% - 40px);
@@ -123,7 +123,7 @@ header .buttons .btn:last-child {
   font-size: 18px;
   border: none;
   background: none;
-  border: 2px solid rgba(57, 62, 70, 0.3);
+  border: 2px solid rgba(60, 180, 72, 0.3);
   border-radius: 5px;
   margin-top: 5px;
   padding: 5px 30px;
@@ -131,17 +131,17 @@ header .buttons .btn:last-child {
   transition-duration: 0.5s;
 }
 .form form input.text-input {
-  background-color: rgba(0, 173, 181, 0.1);
-  color: #222831;
+  background-color: rgba(212, 222, 38, 0.1);
+  color: #296d30;
   width: calc(100% - 64px);
 }
 .form form input.text-input::placeholder {
-  color: rgba(34, 40, 49, 0.3);
+  color: rgba(41, 109, 48, 0.3);
 }
 .form form input.text-input:focus {
   outline: none;
-  border: 2px solid #393e46;
-  background-color: rgba(0, 173, 181, 0.1);
+  border: 2px solid #3cb448;
+  background-color: rgba(212, 222, 38, 0.1);
 }
 .form form input.text-input[invalid] {
   background-color: rgba(255, 0, 0, 0.2);
@@ -151,8 +151,8 @@ header .buttons .btn:last-child {
   cursor: pointer;
 }
 .form form input[type=submit]:hover:not([disabled]) {
-  background-color: #393E46;
-  color: #EEEEEE;
+  background-color: #3CB448;
+  color: #FFFFFF;
 }
 .form form input[type=submit][disabled] {
   cursor: not-allowed;
@@ -205,15 +205,15 @@ main.home object {
   border-radius: 5px;
   margin-top: 5px;
   padding: 5px 20px;
-  background-color: #393E46;
-  color: #EEEEEE;
+  background-color: #3CB448;
+  color: #FFFFFF;
   transition-duration: 0.5s;
-  border: 2px solid #393e46;
+  border: 2px solid #3cb448;
 }
 .btn:hover:not([disabled]) {
-  background-color: rgba(57, 62, 70, 0);
-  border: 2px solid rgba(57, 62, 70, 0.3);
-  color: #222831;
+  background-color: rgba(60, 180, 72, 0);
+  border: 2px solid rgba(60, 180, 72, 0.3);
+  color: #296d30;
 }
 
 /*# sourceMappingURL=style.css.map */
