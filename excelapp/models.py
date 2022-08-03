@@ -1,6 +1,7 @@
 import os
 from django.core.exceptions import ValidationError
 from django.db import models
+from django.contrib.auth.models import User
 
 def validate_file_extension(value):
     """ Validate file extention in upload"""
@@ -18,3 +19,13 @@ class ExcelFile (models.Model):
     class Meta:
         verbose_name_plural = "excel files"
         verbose_name = "excel file"
+
+class ExcelFileUser (models.Model):
+
+    # database
+    user = models.ForeignKey (User, on_delete=models.SET_NULL, null=True)
+    excel_file = models.ForeignKey (ExcelFile, on_delete=models.SET_NULL, null=True)
+
+    class Meta:
+        verbose_name_plural = "excel files users"
+        verbose_name = "excel file user"
