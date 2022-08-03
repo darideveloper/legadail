@@ -13,10 +13,33 @@ admin_site = MyAdminSite()
 admin.site.unregister(User)
 admin.site.unregister(Group)
 
+class ExcelUserListFilter (admin.SimpleListFilter):
+    title = "Excel file"
+    parameter_name = "get_excel"
+
+    def lookups(self, request, model_admin):
+        # Filter names in aside (value, name)
+
+        excel_files = models.ExcelFile.objects.all ()
+        return_data = map (lambda elem : (elem.name, elem.name), excel_files)
+
+        return return_data
+
+    def queryset (self, request, queryset):
+        # Filter data
+
+        # Get valid users (ids)
+        excel = models.ExcelFile.objects.filter (name=self.value())[0]
+        excel_file_users = models.ExcelFileUser.objects.filter (excel_file = excel) 
+        users_found_ids = list(map (lambda elem : elem.user.id, excel_file_users))
+
+        # Filter user by ids
+        return queryset.filter (id__in = users_found_ids)
+
+
 # Setup agian admin and groups using django class
 @admin.register(User)
 class NewUserAdmin(UserAdmin):
-    list_filter = ('is_staff','is_superuser')
     list_display = ('username','email','is_active', 'last_login', 'get_excel')
 
     def __init__(self, *args, **kwargs):
@@ -31,8 +54,10 @@ class NewUserAdmin(UserAdmin):
             return excel_file
         return ""
 
-    get_excel.admin_order_field  = 'excel'  #Allows column order sorting
+    get_excel.admin_order_field  = None  #Don't allows column order sorting
     get_excel.short_description = 'Excel File'  #Renames column head
+
+    list_filter = ('is_staff', ExcelUserListFilter)
 
 @admin.register(models.ExcelFile)
 class ExcelAdmin (admin.ModelAdmin):
