@@ -2,11 +2,15 @@ import random
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login as user_login, logout as user_logout
-from django.http import HttpResponse
+from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 
 app_name = "Schedule App"
+notification_data = {
+    "type": None,
+    "message": "",
+}
 
 @login_required (login_url = "./login")
 def home (request):
@@ -102,3 +106,15 @@ def generate_password (request):
     # Show page with message
     return render (request, 'excelapp/generate_password.html', context=context)
 
+def notification_get (request):
+    return JsonResponse (notification_data)
+
+def notification_reset (request):
+    notification_data["type"] = None
+    notification_data["message"] = ""
+    return HttpResponse ("done")
+
+def notification_callback (sender, **kwargs):
+    # Update notification data
+    notification_data["type"] = kwargs["type"]
+    notification_data["message"] = kwargs["message"]

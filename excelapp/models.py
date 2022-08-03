@@ -1,12 +1,22 @@
-from ast import arg
 import os
-from django.core.exceptions import ValidationError
-from django.db import models
-from django.contrib.auth.models import User
-from .spreadsheet_manager.xlsx import SpreadSheetManager
 from threading import Thread
+from django.db import models
+from django.dispatch import Signal
+from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
+from .spreadsheet_manager.xlsx import SpreadSheetManager
+from .views import notification_callback
 
 def update_database (excel_file, ExcelFile):
+
+    # Connect to notifier
+    notifier = Signal()
+    notifier.connect (receiver=notification_callback)
+
+    # Submit start message
+    notifier.send (sender="update_database", type="info", message="Loading new excel file. Wait before load more files.")
+    
+    # Connect to spreadsheet
     ssmanager = SpreadSheetManager(excel_file)
 
     # Get individuals from table
@@ -30,7 +40,6 @@ def update_database (excel_file, ExcelFile):
 
 
     for individual in individuals:
-        print (individual)
 
         # Get shedule data from each individual sheet
         ssmanager.set_sheet (individual)
@@ -72,7 +81,7 @@ def update_database (excel_file, ExcelFile):
 
         # Save individual schedule
 
-    print ("done")
+    notifier.send (sender="update_database", type="success", message="Done. Users added and schedule updated")
 
 def validate_file_extension(value):
     """ Validate file extention in upload"""
@@ -99,9 +108,9 @@ class ExcelFile (models.Model):
 
         # Create user when upload a new excel file
         # Call function in background
-        # thread_obj = Thread (target=update_database, args=(self.file.path))
-        update_database (self.file.path, self)
-
+        thread_obj = Thread (target=update_database, args=(self.file.path, self))
+        thread_obj.start ()
+        # update_database (self.file.path, self)
 
 
 class ExcelFileUser (models.Model):

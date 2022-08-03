@@ -2,7 +2,9 @@
 
 {% load static %}
 
-{% block extrastyle %}{{ block.super }}
+<!-- Updsate admin colors -->
+{% block extrastyle %}
+{{ block.super }}
 <style>
 
 /* colors */
@@ -54,9 +56,21 @@
 
 </style>
 
+{% endblock %}
+
+{% block extrahead %}
+{{ block.super }}
+<!-- Favicon -->
+<link rel="icon" type="image/png" href="{% static 'excelapp/imgs/favicon.png' %}">
+
+<!-- Imports for toastr -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" type="module"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" type="module"></script>
 
 {% endblock %}
 
-{% block extrahead %}{{ block.super }}
-    <link rel="icon" type="image/png" href="{% static 'excelapp/imgs/favicon.png' %}">
+<!-- Show excel file notifications -->
+{% block footer %}
+<script src="{% static 'excelapp/js/notifications.js' %}" type="module"></script>
 {% endblock %}
