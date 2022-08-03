@@ -48,11 +48,15 @@
     --object-tools-hover-bg: var(--close-button-hover-bg);
 }
 
+#site-name a {
+    color: var(--primary-fg) !important
+}
+
 </style>
 
 
 {% endblock %}
 
 {% block extrahead %}{{ block.super }}
-    <link rel="icon" type="image/png" href="{% static 'favicon.png' %}">
+    <link rel="icon" type="image/png" href="{% static 'excelapp/imgs/favicon.png' %}">
 {% endblock %}

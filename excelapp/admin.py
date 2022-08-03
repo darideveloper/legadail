@@ -5,7 +5,7 @@ from . import models
 
 class MyAdminSite(admin.AdminSite):
     site_header = 'Legadail Dashboar'
-    site_title = 'Legadail Dashboar'
+    site_title = 'Legadail'
     
 admin_site = MyAdminSite()
 
@@ -28,13 +28,15 @@ class ExcelUserListFilter (admin.SimpleListFilter):
     def queryset (self, request, queryset):
         # Filter data
 
-        # Get valid users (ids)
-        excel = models.ExcelFile.objects.filter (name=self.value())[0]
-        excel_file_users = models.ExcelFileUser.objects.filter (excel_file = excel) 
-        users_found_ids = list(map (lambda elem : elem.user.id, excel_file_users))
+        if self.value():
+            # Get valid users (ids)
+            excel = models.ExcelFile.objects.filter (name=self.value())[0]
+            excel_file_users = models.ExcelFileUser.objects.filter (excel_file = excel) 
+            users_found_ids = list(map (lambda elem : elem.user.id, excel_file_users))
 
-        # Filter user by ids
-        return queryset.filter (id__in = users_found_ids)
+            # Filter user by ids
+            return queryset.filter (id__in = users_found_ids)
+        return queryset
 
 
 # Setup agian admin and groups using django class
