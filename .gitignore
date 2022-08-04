@@ -6,3 +6,5 @@ db.sqlite3
 getting-started/*
 excelapp/migrations_sql/
 excelapp/migrations/
+*.xlsx
+*.xlsm
