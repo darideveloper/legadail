@@ -94,11 +94,12 @@ class ExcelFile (models.Model):
 
     # Database
     name = models.CharField (max_length=100)
+    comments = models.CharField (max_length=250, null=True)
     file = models.FileField (upload_to="excelapp/static/excelapp/excel", validators=[validate_file_extension])
 
     class Meta:
-        verbose_name_plural = "excel files"
-        verbose_name = "excel file"
+        verbose_name_plural = "Excel files"
+        verbose_name = "Excel file"
 
     # Extrac actions when save excel file
     def save (self):
