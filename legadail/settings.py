@@ -41,6 +41,7 @@ else:
 # SECURITY WARNING: don't run with debug turned on in production!
 if not IS_HEROKU:
     DEBUG = True
+DEBUG = True # Delete it
 
 # Application definition
 
