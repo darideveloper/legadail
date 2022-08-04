@@ -94,7 +94,7 @@ class ExcelFile (models.Model):
 
     # Database
     name = models.CharField (max_length=100)
-    comments = models.CharField (max_length=250, null=True)
+    comments = models.CharField (max_length=250, null=True, blank=True)
     file = models.FileField (upload_to="excelapp/static/excelapp/excel", validators=[validate_file_extension])
 
     class Meta:
@@ -117,8 +117,8 @@ class ExcelFile (models.Model):
 class ExcelFileUser (models.Model):
 
     # database
-    user = models.ForeignKey (User, on_delete=models.SET_NULL, null=True)
-    excel_file = models.ForeignKey (ExcelFile, on_delete=models.SET_NULL, null=True)
+    user = models.ForeignKey (User, on_delete=models.CASCADE, null=True)
+    excel_file = models.ForeignKey (ExcelFile, on_delete=models.CASCADE, null=True)
 
     class Meta:
         verbose_name_plural = "excel files users"
