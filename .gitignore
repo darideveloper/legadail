@@ -1,11 +1,6 @@
 venv
-__pycache__
-*/__pycache__
-*__pycache__
-*iloveimg.py
-*temp.*
-*images_server.py
-*credentials.py
-*migrations
-*.psd
-excelapp/static/excelapp/excel
+*.pyc
+staticfiles
+.env
+db.sqlite3
+getting-started/*

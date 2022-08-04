@@ -1,1 +1,1 @@
-web: gunicorn legadail.wsgi
+web: gunicorn gettingstarted.wsgi
