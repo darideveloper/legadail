@@ -46,13 +46,13 @@ DEBUG = True # Delete it
 # Application definition
 
 INSTALLED_APPS = [
+    "excelapp",
     "django.contrib.admin",
     "django.contrib.auth",
     "django.contrib.contenttypes",
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-    "excelapp",
 ]
 
 MIDDLEWARE = [
