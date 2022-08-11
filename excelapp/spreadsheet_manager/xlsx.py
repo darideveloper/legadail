@@ -9,7 +9,7 @@ class SpreadSheetManager ():
     def __init__(self, file_name): 
         
         self.file_name = file_name
-        self.wb = openpyxl.load_workbook(self.file_name)
+        self.wb = openpyxl.load_workbook(self.file_name, data_only=True)
         self.current_sheet = None
     
     def get_sheets (self): 

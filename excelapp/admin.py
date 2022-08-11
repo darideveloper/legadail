@@ -70,3 +70,4 @@ class ExcelAdmin (admin.ModelAdmin):
 admin_site.register (User, NewUserAdmin)
 admin_site.register (models.ExcelFile, ExcelAdmin)
 admin_site.register (models.ExcelFileUser)
+admin_site.register (models.UserSheetData)

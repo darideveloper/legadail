@@ -1,4 +1,5 @@
 import os
+import json
 from threading import Thread
 from django.db import models
 from django.dispatch import Signal
@@ -6,6 +7,12 @@ from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
 from .spreadsheet_manager.xlsx import SpreadSheetManager
 from .views import notification_callback
+
+def format_sheet_data (row): 
+    if row[0] and type(row[0]) != str : 
+        return [row[0].strftime("%H:%M"), *row[1:17]]
+    else:
+        return row[0:17]
 
 def update_database (excel_file, ExcelFile):
 
@@ -46,7 +53,10 @@ def update_database (excel_file, ExcelFile):
         sheet_data = ssmanager.get_data ()[1:80]
         
         # Clean shedule data
-        sheet_data = map (lambda row : row[0:8], sheet_data)
+        sheet_data = list(map (format_sheet_data, sheet_data))
+        sheet_data_json = {
+            "data": sheet_data,
+        }
 
         # Create new user
         if new_excel:
@@ -76,10 +86,24 @@ def update_database (excel_file, ExcelFile):
             new_excel_file_user = ExcelFileUser (user=new_user, excel_file=ExcelFile)
             new_excel_file_user.save()
 
+            # Save individual schedule
+            new_user_sheet_data = UserSheetData (user=new_user, data=sheet_data_json)
+            new_user_sheet_data.save ()
 
-        # Get individual schedule
+        else:
+        
+            # Get current user
+            possible_users = User.objects.filter (username__startswith=individual)
+            excel_users = ExcelFileUser.objects.filter (user__in = possible_users)
+            if len(excel_users) == 0:
+                print ("no users found")
+                continue
+            current_user = excel_users[0].user
 
-        # Save individual schedule
+            # Save individual schedule
+            current_user_sheet = UserSheetData.objects.filter (user=current_user)[0]
+            current_user_sheet.data = sheet_data_json
+            current_user_sheet.save ()
 
     notifier.send (sender="update_database", type="success", message="Done. Users added and schedule updated")
 
@@ -123,3 +147,12 @@ class ExcelFileUser (models.Model):
     class Meta:
         verbose_name_plural = "excel files users"
         verbose_name = "excel file user"
+
+class UserSheetData (models.Model):
+    # Database
+    user = models.ForeignKey (User, on_delete=models.CASCADE, null=True)
+    data = models.JSONField (null=True, blank=True)
+
+    class Meta:
+        verbose_name_plural = "users sheet data"
+        verbose_name = "user sheet data"
