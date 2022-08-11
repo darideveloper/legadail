@@ -10,9 +10,9 @@ from .views import notification_callback
 
 def format_sheet_data (row): 
     if row[0] and type(row[0]) != str : 
-        return [row[0].strftime("%H:%M"), *row[1:17]]
+        return [row[0].strftime("%H:%M"), *row[1:9]]
     else:
-        return row[0:17]
+        return row[0:9]
 
 def update_database (excel_file, ExcelFile):
 

@@ -3,12 +3,47 @@
 
 {% block main %}
 <main class="home">
-    <object data="{{pdf_path}}" type="application/pdf">
-        <div>
-            <p>Online PDF viewer not supported. Try to download: 
-                <a href="{{pdf_path}}">here</a>
-            </p>
-        </div>
-    </object> 
+    {% if sheet_data_header %}
+    
+        <!-- Display table -->
+        <table>
+            <thead>
+                <tr>
+                    {% for title in sheet_data_header %}
+                        {% if title %}
+                            <th>{{title}}</th>
+                        {% else %}
+                            <th></th>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            </thead>
+            {% for row in sheet_data_body %}
+                <tr>
+                    {% for cell in row %}
+                        {% if cell %}
+                            <td>{{cell}}</td>
+                        {% else %}
+                            <td></td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+
+        </table>
+
+
+    {% else %}
+        The user dont have an excel sheet.
+    {% endif %}
 </main>
+<script>
+    // Different colors for last  row of the table
+    const rows = document.querySelectorAll ("table tr")
+    console.log (rows)
+    const last_rows = Array.from(rows).slice (rows.length - 6, rows.length)
+    for (const row of last_rows) {
+        row.classList.add ("last")
+    }
+</script>
 {% endblock %}

@@ -1,7 +1,7 @@
 import random
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login as user_login, logout as user_logout
+from django.contrib.auth import authenticate, login as user_login, logout as user_logout, get_user
 from django.http import JsonResponse, HttpResponse
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
@@ -15,10 +15,23 @@ notification_data = {
 @login_required (login_url = "./login")
 def home (request):
 
+    from .models import UserSheetData
+
+    # Get sheet data from database
+    user_name = get_user (request)
+    current_user = User.objects.filter (username = user_name)[0]
+    data_found = UserSheetData.objects.filter (user = current_user)
+    if len(data_found) == 1:
+        sheet_data = data_found[0].data
+    else:
+        sheet_data = {"data": [None, None]}
+    
     context = {
         "app_name": app_name,
         "page_name": "Home",
         "pdf_path": "https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf",
+        "sheet_data_body": sheet_data["data"][1:],
+        "sheet_data_header": sheet_data["data"][0]
     }
     return render (request, 'excelapp/home.html', context=context)
 
